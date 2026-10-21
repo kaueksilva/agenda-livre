@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel — Agenda Livre</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container wide">
+    <form id="setup" class="card" hidden>
+      <h1>Bem-vindo ao Agenda Livre</h1>
+      <p class="muted">Configure seu negócio em menos de um minuto.</p>
+      <label>Nome do negócio<input name="business_name" required maxlength="80" placeholder="Barbearia do João"></label>
+      <label>Seu nome (primeiro profissional)<input name="professional_name" required maxlength="60"></label>
+      <label>Senha do painel (mínimo 8 caracteres)<input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+      <button class="btn primary block">Começar</button>
+      <p class="error" hidden></p>
+    </form>
+
+    <form id="login" class="card" hidden>
+      <h1>Painel</h1>
+      <label>Senha<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="btn primary block">Entrar</button>
+      <p class="error" hidden></p>
+    </form>
+
+    <section id="panel" hidden>
+      <div class="topbar">
+        <h1 id="panel-title">Painel</h1>
+        <div class="actions" style="margin:0">
+          <a class="btn small" href="/" target="_blank">Ver página de agendamento</a>
+          <button class="btn small" id="logout">Sair</button>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="tab" data-tab="agenda">Agenda</button>
+        <button class="tab" data-tab="services">Serviços</button>
+        <button class="tab" data-tab="professionals">Profissionais</button>
+        <button class="tab" data-tab="hours">Horários</button>
+        <button class="tab" data-tab="settings">Configurações</button>
+      </nav>
+      <div id="content"></div>
+    </section>
+  </main>
+  <script src="/admin.js"></script>
+</body>
+</html>

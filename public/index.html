@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendamento</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="brand">
+      <h1 id="business">Agendamento</h1>
+      <p class="muted">Escolha o serviço e o melhor horário para você.</p>
+    </header>
+
+    <p id="not-configured" class="card notice" hidden>
+      Este sistema ainda não foi configurado. Se você é o dono, acesse <a href="/admin">/admin</a>.
+    </p>
+
+    <section id="booking" hidden>
+      <div class="card">
+        <h2>Serviço</h2>
+        <div id="services" class="options"></div>
+      </div>
+
+      <div class="card" id="step-professional" hidden>
+        <h2>Profissional</h2>
+        <select id="professional"></select>
+      </div>
+
+      <div class="card" id="step-date" hidden>
+        <h2>Data e horário</h2>
+        <input type="date" id="date">
+        <div id="slots" class="slots"></div>
+      </div>
+
+      <form class="card" id="step-client" hidden>
+        <h2>Seus dados</h2>
+        <label>Nome
+          <input name="name" required maxlength="80" autocomplete="name">
+        </label>
+        <label>WhatsApp
+          <input name="phone" required inputmode="tel" placeholder="(11) 91234-5678" autocomplete="tel">
+        </label>
+        <p id="summary" class="summary"></p>
+        <button type="submit" class="btn primary block">Confirmar agendamento</button>
+        <p id="error" class="error" hidden></p>
+      </form>
+    </section>
+
+    <section id="confirmation" hidden></section>
+
+    <footer class="muted small">Feito com <a href="https://github.com/" id="repo-link">Agenda Livre</a> — open source.</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

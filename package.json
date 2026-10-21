@@ -1,0 +1,20 @@
+{
+  "name": "agenda-livre",
+  "version": "0.1.0",
+  "description": "Sistema de agendamento open source para barbearias, salões e clínicas, com sinal via PIX e lembretes por WhatsApp.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "keywords": ["agendamento", "barbearia", "salao", "pix", "whatsapp", "self-hosted"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0",
+    "qrcode": "^1.5.4"
+  }
+}
