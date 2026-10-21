@@ -4,6 +4,9 @@ Sistema de agendamento **open source** para barbearias, salões, estúdios e cl�
 Seus clientes marcam horário pelo celular, pagam o sinal via **PIX** e recebem lembrete no **WhatsApp**.
 Sem mensalidade: você instala no seu próprio servidor.
 
+**[Veja a demonstração online](https://agenda-livre.onrender.com/)**: faça um agendamento de teste e acompanhe pelo [painel](https://agenda-livre.onrender.com/admin) (senha `demo1234`).
+A demo pode levar até 1 minuto para abrir na primeira visita.
+
 <!-- Cole aqui o botão "Implantar na Hostinger" gerado no programa Para devs -->
 
 ## Funcionalidades
