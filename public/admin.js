@@ -73,6 +73,11 @@ async function boot() {
   $$('.tab').forEach((tab) => tab.addEventListener('click', () => openTab(tab.dataset.tab)));
 
   const status = await api('/api/admin/status');
+  if (status.demo_password) {
+    $('#demo-hint').textContent = `Demonstração: a senha é ${status.demo_password} (já preenchida).`;
+    $('#demo-hint').hidden = false;
+    $('#login').password.value = status.demo_password;
+  }
   if (!status.configured) return show('setup');
   if (!status.logged) return show('login');
   openPanel();

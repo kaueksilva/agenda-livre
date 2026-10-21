@@ -28,6 +28,14 @@ async function init() {
   state.info = await api('/api/public/info');
   document.title = state.info.business_name;
   $('#business').textContent = state.info.business_name;
+  if (state.info.demo) {
+    const banner = $('#demo-banner');
+    banner.innerHTML =
+      '<strong>Demonstração do Agenda Livre.</strong> Faça um agendamento de teste e veja o resultado no ' +
+      `<a href="/admin">painel</a>${state.info.demo_password ? ` (senha: <code>${esc(state.info.demo_password)}</code>)` : ''}. ` +
+      'Não pague o PIX: os dados são fictícios e apagados periodicamente.';
+    banner.hidden = false;
+  }
 
   const token = new URLSearchParams(location.search).get('t');
   if (token) return showConfirmation(token);

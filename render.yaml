@@ -1,0 +1,17 @@
+# Blueprint da demonstração pública no Render (plano gratuito).
+# No plano gratuito o disco é temporário: a cada reinício a demo volta aos dados de exemplo.
+services:
+  - type: web
+    name: agenda-livre-demo
+    runtime: docker
+    plan: free
+    region: virginia
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: DEMO_MODE
+        value: "true"
+      - key: ADMIN_PASSWORD
+        value: demo1234
+      - key: TZ
+        value: America/Sao_Paulo

@@ -17,6 +17,7 @@ import {
   startSession,
   verifyPassword,
 } from './auth.js';
+import { DEMO, seedDemo } from './demo.js';
 import { availableSlots } from './slots.js';
 import { pixPayload } from './pix.js';
 import { apptStart, addDays, fmtMin, isValidDate, todayStr, toMin } from './time.js';
@@ -39,6 +40,8 @@ if (!isConfigured() && process.env.ADMIN_PASSWORD) {
   setSettings({ admin_hash: hashPassword(process.env.ADMIN_PASSWORD) });
   seedDefaults();
 }
+if (DEMO && isConfigured()) seedDemo();
+const demoPassword = DEMO ? process.env.ADMIN_PASSWORD || null : null;
 
 const app = express();
 app.set('trust proxy', 1);
@@ -78,6 +81,8 @@ app.get('/api/public/info', (req, res) => {
   const today = todayStr();
   res.json({
     configured: isConfigured(),
+    demo: DEMO,
+    demo_password: demoPassword,
     business_name: s.business_name,
     deposit_percent: s.pix_key ? Number(s.deposit_percent) : 0,
     today,
@@ -180,7 +185,9 @@ app.post('/api/public/appointment/:token/cancel', (req, res) => {
 
 // ---------- Painel (dono do negócio) ----------
 
-app.get('/api/admin/status', (req, res) => res.json({ configured: isConfigured(), logged: isLogged(req) }));
+app.get('/api/admin/status', (req, res) =>
+  res.json({ configured: isConfigured(), logged: isLogged(req), demo_password: demoPassword })
+);
 
 app.post('/api/admin/setup', (req, res) => {
   if (isConfigured()) return bad(res, 'O sistema já foi configurado.', 403);
@@ -329,6 +336,9 @@ const EDITABLE_SETTINGS = {
   max_days_ahead: (v) => (Number.isInteger(Number(v)) && v >= 1 && v <= 365 ? Number(v) : null),
 };
 
+// Na demonstração pública, ninguém pode trocar o nome, o WhatsApp ou o PIX.
+const LOCKED_IN_DEMO = ['business_name', 'whatsapp', 'pix_key', 'pix_name', 'pix_city'];
+
 admin.get('/settings', (req, res) => {
   const s = getSettings();
   const values = Object.fromEntries(Object.keys(EDITABLE_SETTINGS).map((k) => [k, s[k]]));
@@ -339,6 +349,7 @@ admin.put('/settings', (req, res) => {
   const updates = {};
   for (const [key, parse] of Object.entries(EDITABLE_SETTINGS)) {
     if (!(key in (req.body ?? {}))) continue;
+    if (DEMO && LOCKED_IN_DEMO.includes(key)) continue;
     const value = parse(req.body[key]);
     if (value === null) return bad(res, `Valor inválido para "${key}".`);
     updates[key] = value;
@@ -348,6 +359,7 @@ admin.put('/settings', (req, res) => {
 });
 
 admin.put('/password', (req, res) => {
+  if (DEMO) return bad(res, 'A senha não pode ser alterada na demonstração.', 403);
   const { current, password } = req.body ?? {};
   if (!verifyPassword(String(current || ''), getSettings().admin_hash)) return bad(res, 'Senha atual incorreta.');
   if (String(password || '').length < 8) return bad(res, 'A nova senha precisa ter pelo menos 8 caracteres.');
