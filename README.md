@@ -17,6 +17,11 @@ Sem mensalidade: você instala no seu próprio servidor.
 - Lembretes automáticos opcionais pela [Evolution API](https://github.com/EvolutionAPI/evolution-api)
 - Um único container, banco SQLite embutido, sem dependências externas
 
+## Onde hospedar
+
+O Agenda Livre roda em qualquer VPS com Docker. Recomendamos a [Hostinger](https://www.hostinger.com?REFERRALCODE=BONKAUEKSEMK):
+os planos de VPS já vêm com Docker e custam menos que a mensalidade de um sistema de agendamento.
+
 ## Instalação
 
 ### Docker (recomendado)
