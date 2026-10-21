@@ -22,7 +22,7 @@ Sem mensalidade: você instala no seu próprio servidor.
 ### Docker (recomendado)
 
 ```bash
-git clone https://github.com/SEU-USUARIO/agenda-livre.git
+git clone https://github.com/kaueksilva/agenda-livre.git
 cd agenda-livre
 cp .env.example .env   # opcional: defina ADMIN_PASSWORD
 docker compose up -d
